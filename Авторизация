@@ -1,0 +1,35 @@
+ string loginUser = text_login.Text;
+            string passUser = text_pass.Text;
+
+            DB db = new DB();
+            db.openConnection();
+
+            DataTable table = new DataTable();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            MySqlCommand command = new MySqlCommand("SELECT `fio`,`id` FROM `users` WHERE `login` = @uL AND `pass` = @uP", db.getConnection());
+
+            command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = loginUser;
+            command.Parameters.Add("@uP", MySqlDbType.VarChar).Value = passUser;
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            if (table.Rows.Count > 0)
+            {
+                while (reader.Read())
+                {
+                    MessageBox.Show("Добро пожаловать");
+                    string fio = Convert.ToString(reader["fio"]);
+                    string id = Convert.ToString(reader["id"]); 
+                    Form3 fm3 = new Form3(fio,id);
+                    fm3.Show();
+                    this.Hide();
+                }
+                reader.Close();
+                command.Dispose();
+            }
+            else
+                MessageBox.Show("Данные не верны");
