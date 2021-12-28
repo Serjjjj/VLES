@@ -1,0 +1,13 @@
+SELECT `fio`,`id` FROM `users` WHERE `login` = @uL AND `pass` = @uP
+INSERT INTO `users` (`login`, `pass`, `fio`) VALUES (@login, @pass, @fio)
+SELECT * FROM `users` WHERE `login` = @uL
+INSERT INTO `konf`(`fio`) SELECT `fio` FROM `users` WHERE `id` = @uL
+SELECT * FROM `admpasswords` WHERE `admpass` = @aP
+SELECT `fio` FROM `konf`
+DELETE FROM `konf` WHERE `konf`.`fio` = @uL
+DELETE FROM konference
+SELECT `fio` FROM `users` WHERE `id` = @uL
+SELECT `id` FROM `konf`
+SELECT `fio` FROM `konf`
+DELETE FROM konf WHERE `id` = @uL
+INSERT INTO `konference` (`name`, `theme`, `number`) VALUES (@name, @theme, @number)
