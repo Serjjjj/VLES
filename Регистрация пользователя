@@ -1,0 +1,39 @@
+if (text_log.Text == "")
+            {
+                MessageBox.Show("Введите логин");
+                return;
+            }
+            if(text_pas.Text == "")
+            {
+                MessageBox.Show("Введите пароль");
+                return;
+            }
+            if (text_fio.Text == "")
+            {
+                MessageBox.Show("Введите ФИО");
+                return;
+            }
+
+            if(checkUser())
+                    return;
+
+            DB db = new DB();
+            MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`login`, `pass`, `fio`) VALUES (@login, @pass, @fio)", db.getConnection());
+
+            command.Parameters.Add("@login", MySqlDbType.VarChar).Value = text_log.Text;
+            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = text_pas.Text;
+            command.Parameters.Add("@fio", MySqlDbType.VarChar).Value = text_fio.Text;
+
+            db.openConnection();
+
+            if (command.ExecuteNonQuery() == 1)
+            {
+                MessageBox.Show("Аккаунт зарегестрирован");
+                Form1 fm1 = new Form1();
+                fm1.Show();
+                this.Hide();
+            }
+            else
+                MessageBox.Show("Ошибка");
+
+            db.closeConnection();
