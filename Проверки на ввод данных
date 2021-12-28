@@ -1,0 +1,47 @@
+if (text_log.Text == "")
+            {
+                MessageBox.Show("Введите логин");
+                return;
+            }
+            if(text_pas.Text == "")
+            {
+                MessageBox.Show("Введите пароль");
+                return;
+            }
+            if (text_fio.Text == "")
+            {
+                MessageBox.Show("Введите ФИО");
+                return;
+            }
+            
+            
+            
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Введите название");
+                return;
+            }
+            if (textBox2.Text == "")
+            {
+                MessageBox.Show("Введите тему");
+                return;
+            }
+            if (textBox3.Text == "")
+            {
+                MessageBox.Show("Введите кол-во участников");
+                return;
+            }
+            
+            
+            
+            
+            private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+
+            if (!Char.IsDigit(number))
+            {
+                e.Handled = true;
+                MessageBox.Show("Введите число");
+            }
+        }
