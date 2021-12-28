@@ -42,6 +42,5 @@ if (text_log.Text == "")
             if (!Char.IsDigit(number))
             {
                 e.Handled = true;
-                MessageBox.Show("Введите число");
             }
         }
