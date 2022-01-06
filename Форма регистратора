@@ -1,0 +1,61 @@
+public Form10()
+        {
+            InitializeComponent();
+            listView1.GridLines = true;
+            listView1.View = View.Details;
+            listView1.Columns.Add("Зарегистрировавшиеся", 800);
+
+            DB db = new DB();
+            db.openConnection();
+            MySqlCommand command = new MySqlCommand("SELECT `fio` FROM `users`", db.getConnection());
+            MySqlDataReader reader = command.ExecuteReader();
+            listView1.Items.Clear();
+            while (reader.Read())
+            {
+                ListViewItem list = new ListViewItem(new string[] { Convert.ToString(reader["fio"]) });
+                listView1.Items.Add(list);
+            }
+            reader.Close();
+            command.Dispose();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form5 main = this.Owner as Form5;
+            if (main != null)
+            {
+                this.Close();
+            }
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            DB db = new DB();
+            db.openConnection();
+            foreach (ListViewItem eachItem in listView1.SelectedItems)
+            {
+                string fio = eachItem.Text;
+                DataTable table = new DataTable();
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                MySqlCommand command = new MySqlCommand("UPDATE `users` SET `registr` = 1 WHERE `users`.`fio` = @uL;", db.getConnection());
+                command.Parameters.Add("@uL", MySqlDbType.VarChar).Value = fio;
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+                listView1.Items.Remove(eachItem);
+            }
+        }
+
+        Point lpoint;
+        private void Form10_MouseDown(object sender, MouseEventArgs e)
+        {
+            lpoint = new Point(e.X, e.Y);
+        }
+
+        private void Form10_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lpoint.X;
+                this.Top += e.Y - lpoint.Y;
+            }
+        }
