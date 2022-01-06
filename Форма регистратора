@@ -1,0 +1,64 @@
+public Form9(string fio, string id)
+        {
+            InitializeComponent();
+            label1.Text = fio;
+            label2.Text = id;
+
+            DB db = new DB();
+            db.openConnection();
+            MySqlCommand command = new MySqlCommand("SELECT `fio` FROM `konf`", db.getConnection());
+            MySqlDataReader reader = command.ExecuteReader();
+            dataGridView1.Rows.Clear();
+            while (reader.Read())
+            {
+                string s = Convert.ToString(reader["fio"]);
+                dataGridView1.Rows.Add(s);
+            }
+            reader.Close();
+            command.Dispose();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DB db = new DB();
+            db.openConnection();
+            MySqlCommand command = new MySqlCommand("SELECT `fio` FROM `konf`", db.getConnection());
+            MySqlDataReader reader = command.ExecuteReader();
+            dataGridView1.Rows.Clear();
+            while (reader.Read())
+            {
+                string s = Convert.ToString(reader["fio"]);
+                dataGridView1.Rows.Add(s);
+            }
+            reader.Close();
+            command.Dispose();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string fio = label1.Text;
+            string id = label2.Text;
+            Form3 fm3 = new Form3(fio, id);
+            fm3.Show();
+            this.Hide();
+        }
+
+        Point lpoint;
+        private void Form9_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Left += e.X - lpoint.X;
+                this.Top += e.Y - lpoint.Y;
+            }
+        }
+
+        private void Form9_MouseDown(object sender, MouseEventArgs e)
+        {
+            lpoint = new Point(e.X, e.Y);
+        }
