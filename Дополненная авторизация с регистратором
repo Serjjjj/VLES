@@ -1,0 +1,18 @@
+"SELECT `fio`,`id`,`registr` FROM `users` WHERE `login` = @uL AND `pass` = @uP"
+
+
+
+string registr = Convert.ToString(reader["registr"]);
+                    if (registr == "1")
+                    {
+                        Form9 fm9 = new Form9(fio, id);
+                        fm9.Owner = this;
+                        fm9.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        Form3 fm3 = new Form3(fio, id);
+                        fm3.Show();
+                        this.Hide();
+                    }
