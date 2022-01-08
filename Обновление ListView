@@ -1,0 +1,45 @@
+ private void button3_Click(object sender, EventArgs e)
+        {
+            DB db = new DB();
+            db.openConnection();
+            MySqlCommand command = new MySqlCommand("SELECT `fio` FROM `users`", db.getConnection());
+            MySqlDataReader reader = command.ExecuteReader();
+            listView1.Items.Clear();
+            while (reader.Read())
+            {
+                ListViewItem list = new ListViewItem(new string[] { Convert.ToString(reader["fio"]) });
+                listView1.Items.Add(list);
+            }
+            reader.Close();
+            command.Dispose();
+
+            MySqlCommand mycommand = new MySqlCommand("SELECT `fio` FROM `konf`", db.getConnection());
+            MySqlDataReader myreader = mycommand.ExecuteReader();
+            listView2.Items.Clear();
+            while (myreader.Read())
+            {
+                ListViewItem list = new ListViewItem(new string[] { Convert.ToString(myreader["fio"]) });
+                listView2.Items.Add(list);
+            }
+            myreader.Close();
+            mycommand.Dispose();
+        }
+        
+        
+        
+        
+                private void button3_Click(object sender, EventArgs e)
+        {
+            DB db = new DB();
+                db.openConnection();
+                MySqlCommand command = new MySqlCommand("SELECT `fio` FROM `konf`", db.getConnection());
+                listView1.Items.Clear();
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    ListViewItem list = new ListViewItem(new string[] { Convert.ToString(reader["fio"]) });
+                    listView1.Items.Add(list);
+                }
+                reader.Close();
+                command.Dispose();
+        }
