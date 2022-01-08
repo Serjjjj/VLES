@@ -1,0 +1,12 @@
+{
+                db.openConnection();
+                MySqlCommand mySqlCommand = new MySqlCommand("SELECT `theme` FROM `konference`",db.getConnection());
+                MySqlDataReader myreader = mySqlCommand.ExecuteReader();
+                while (myreader.Read())
+                {
+                    string theme = Convert.ToString(myreader["theme"]);
+                    label6.Text = theme;
+                }
+                myreader.Close();
+                mySqlCommand.Dispose();
+            }
