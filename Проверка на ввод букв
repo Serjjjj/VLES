@@ -1,0 +1,9 @@
+ private void text_fio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string Symbol = e.KeyChar.ToString();
+
+            if (e.KeyChar != 8 && !System.Text.RegularExpressions.Regex.Match(Symbol, @"[а-яА-Я]|[a-zA-Z]").Success)
+            {
+                e.Handled = true;
+            }
+        }
